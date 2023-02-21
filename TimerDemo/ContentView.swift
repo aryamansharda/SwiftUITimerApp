@@ -7,12 +7,15 @@
 
 import SwiftUI
 
-class TimerViewModel: ObservableObject {
+final class TimerViewModel: ObservableObject {
     enum TimerState {
-        case running
+        case active
         case paused
-        case notStarted
+        case resumed
+        case cancelled
     }
+
+    private var timer = Timer()
 
     // Total time in seconds
     private var totalTimeForCurrentSelection: Int {
@@ -23,20 +26,39 @@ class TimerViewModel: ObservableObject {
     @Published var selectedHoursAmount = 0
     @Published var selectedMinutesAmount = 0
     @Published var selectedSecondsAmount = 10
-    @Published var state: TimerState = .notStarted
+    @Published var state: TimerState = .cancelled {
+        didSet {
+            switch state {
+            case .cancelled:
+                timer.invalidate()
+                secondsToCompletion = 0
+                progress = 0
+            case .active:
+                startTimer()
+
+                secondsToCompletion = totalTimeForCurrentSelection
+                progress = 1.0
+
+                updateCompletionDate()
+            case .paused:
+                timer.invalidate()
+            case .resumed:
+                startTimer()
+                updateCompletionDate()
+            }
+        }
+    }
 
     // Powers the ProgressView
     @Published var secondsToCompletion = 0
     @Published var progress: Float = 0.0
-
-    var completionDate = Date.now
-    var timer = Timer()
+    @Published var completionDate = Date.now
 
     let hoursRange = 0...23
     let minutesRange = 0...59
     let secondsRange = 0...59
 
-    func startTimer() {
+    private func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] _ in
             guard let self else { return }
 
@@ -46,35 +68,13 @@ class TimerViewModel: ObservableObject {
             // We can't do <= here because we need the time from T-1 seconds to
             // T-0 seconds to animate through first
             if self.secondsToCompletion < 0 {
-                self.cancelTimer()
+                self.state = .cancelled
             }
         })
+    }
 
-        // Checks tha the timer isn't currently paused
-        guard secondsToCompletion == 0 else { return }
-
-        secondsToCompletion = totalTimeForCurrentSelection
-        progress = 1.0
+    private func updateCompletionDate() {
         completionDate = Date.now.addingTimeInterval(Double(secondsToCompletion))
-        state = .running
-    }
-
-    func pauseTimer() {
-        timer.invalidate()
-        state = .paused
-    }
-
-    func resumeTimer() {
-        startTimer()
-        state = .running
-    }
-
-    func cancelTimer() {
-        timer.invalidate()
-
-        secondsToCompletion = 0
-        progress = 0
-        state = .notStarted
     }
 }
 
@@ -84,26 +84,26 @@ struct TimerView: View {
     var timerControls: some View {
         HStack {
             Button("Cancel") {
-                model.cancelTimer()
+                model.state = .cancelled
             }
             .buttonStyle(CancelButtonStyle())
 
             Spacer()
 
             switch model.state {
-            case .notStarted:
+            case .cancelled:
                 Button("Start") {
-                    model.startTimer()
+                    model.state = .active //.startTimer()
                 }
                 .buttonStyle(StartButtonStyle())
             case .paused:
                 Button("Resume") {
-                    model.resumeTimer()
+                    model.state = .resumed //.resumeTimer()
                 }
                 .buttonStyle(PauseButtonStyle())
-            case .running:
+            case .active, .resumed:
                 Button("Pause") {
-                    model.pauseTimer()
+                    model.state = .paused //.pauseTimer()
                 }
                 .buttonStyle(PauseButtonStyle())
             }
@@ -142,7 +142,7 @@ struct TimerView: View {
 
     var body: some View {
         VStack {
-            if model.state == .notStarted {
+            if model.state == .cancelled {
                 timePickerControl
             } else {
                 progressView
