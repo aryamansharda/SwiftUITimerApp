@@ -8,7 +8,7 @@
 import Foundation
 
 extension Int {
-    var asTimeString: String {
+    var asTimestamp: String {
         let hour = self / 3600
         let minute = self / 60 % 60
         let second = self % 60

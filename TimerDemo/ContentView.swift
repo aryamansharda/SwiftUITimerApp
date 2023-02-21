@@ -132,7 +132,7 @@ var progressView: some View {
         }
 
         VStack {
-            Text(model.secondsToCompletion.asTimeString)
+            Text(model.secondsToCompletion.asTimestamp)
                 .font(.largeTitle)
             HStack {
                 Image(systemName: "bell.fill")
