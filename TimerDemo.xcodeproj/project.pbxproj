@@ -15,6 +15,9 @@
 		932C74AF29A40596007EA8CE /* TimerDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C74AE29A40596007EA8CE /* TimerDemoUITests.swift */; };
 		932C74B129A40596007EA8CE /* TimerDemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C74B029A40596007EA8CE /* TimerDemoUITestsLaunchTests.swift */; };
 		936D904D29A443EA00C92FE5 /* StartButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936D904C29A443EA00C92FE5 /* StartButtonStyle.swift */; };
+		93C747AD2A6F67AA00119566 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C747AB2A6F67AA00119566 /* CircularProgressView.swift */; };
+		93C747AE2A6F67AA00119566 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C747AC2A6F67AA00119566 /* TimePickerView.swift */; };
+		93C747B12A6F67B400119566 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C747B02A6F67B400119566 /* Int+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,9 @@
 		932C74AE29A40596007EA8CE /* TimerDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerDemoUITests.swift; sourceTree = "<group>"; };
 		932C74B029A40596007EA8CE /* TimerDemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerDemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		936D904C29A443EA00C92FE5 /* StartButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButtonStyle.swift; sourceTree = "<group>"; };
+		93C747AB2A6F67AA00119566 /* CircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		93C747AC2A6F67AA00119566 /* TimePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
+		93C747B02A6F67B400119566 /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +102,9 @@
 		932C749229A40595007EA8CE /* TimerDemo */ = {
 			isa = PBXGroup;
 			children = (
+				93C747AF2A6F67B400119566 /* Extensions */,
+				93C747AB2A6F67AA00119566 /* CircularProgressView.swift */,
+				93C747AC2A6F67AA00119566 /* TimePickerView.swift */,
 				932C749329A40595007EA8CE /* TimerDemoApp.swift */,
 				932C749529A40595007EA8CE /* ContentView.swift */,
 				936D904B29A443DC00C92FE5 /* ButtonStyles */,
@@ -136,6 +145,14 @@
 				936D904C29A443EA00C92FE5 /* StartButtonStyle.swift */,
 			);
 			path = ButtonStyles;
+			sourceTree = "<group>";
+		};
+		93C747AF2A6F67B400119566 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				93C747B02A6F67B400119566 /* Int+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +287,9 @@
 			files = (
 				936D904D29A443EA00C92FE5 /* StartButtonStyle.swift in Sources */,
 				932C749629A40595007EA8CE /* ContentView.swift in Sources */,
+				93C747AD2A6F67AA00119566 /* CircularProgressView.swift in Sources */,
+				93C747B12A6F67B400119566 /* Int+Extension.swift in Sources */,
+				93C747AE2A6F67AA00119566 /* TimePickerView.swift in Sources */,
 				932C749429A40595007EA8CE /* TimerDemoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
